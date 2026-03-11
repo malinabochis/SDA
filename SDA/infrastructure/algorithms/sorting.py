@@ -49,3 +49,9 @@ def merge_sort(arr, left, right, comparator):
         merge_sort(arr, left, mid, comparator)
         merge_sort(arr, mid + 1, right, comparator)
         merge(arr, left, mid, right, comparator)
+    return arr
+
+def sort_alg_type(lista, comparator):
+    arr = lista[:] # copie dupa lista, ca sa nu se modifice ea insasi
+    merge_sort(arr, 0, len(arr) - 1, comparator)
+    return arr

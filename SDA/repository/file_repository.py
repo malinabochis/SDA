@@ -11,7 +11,7 @@ class CarFileRepository(CarRepository):
     def __load_data(self):
         with open(self.__file_name) as f:
             for line in f:
-                array = line.strip().split(",")   #strip() curata spatiile, tab urile si \n de la inceputul si sfarsitul liniei
+                array = line.strip().split()   #strip() curata spatiile, tab urile si \n de la inceputul si sfarsitul liniei
                 car = Car(array[0], array[1], array[2], int(array[3]), int(array[4]))
                 super().save(car)
 
