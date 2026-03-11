@@ -6,7 +6,7 @@ from SDA.ui.console import AppConsole
 
 def main():
     car_validator = CarValidator()
-    car_repository = CarFileRepository(car_validator, "../../data/cars")
+    car_repository = CarFileRepository(car_validator, "../data/cars")
     car_service = CarService(car_repository)
     app_console = AppConsole(car_service)
     app_console.run_console()
