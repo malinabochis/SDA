@@ -43,12 +43,30 @@ def merge(arr, left, mid, right, comparator):
         j += 1
         k += 1
 
-def merge_sort(arr, left, right, comparator):
-    if left < right:
-        mid = (left + right) // 2
-        merge_sort(arr, left, mid, comparator)
-        merge_sort(arr, mid + 1, right, comparator)
-        merge(arr, left, mid, right, comparator)
+# def merge_sort(arr, left, right, comparator):
+#     if left < right:
+#         mid = (left + right) // 2
+#         merge_sort(arr, left, mid, comparator)
+#         merge_sort(arr, mid + 1, right, comparator)
+#         merge(arr, left, mid, right, comparator)
+#     return arr
+
+
+def merge_sort(arr, comparator):
+    arr = arr[:]
+
+    def _sort(left, right):
+        if left < right:
+            mid = (left + right) // 2
+
+            _sort(left, mid)  # Sortăm jumătatea stângă
+            _sort(mid + 1, right)  # Sortăm jumătatea dreaptă
+
+            merge(arr, left, mid, right, comparator)
+
+    if len(arr) > 1:
+        _sort(0, len(arr) - 1)
+
     return arr
 
 
@@ -68,7 +86,7 @@ def bubble_sort(arr, comparator):
 
 def sort_alg_type(lista, comparator, alg="merge"):
     if alg == "merge":
-        return merge_sort(lista[:], 0, len(lista) - 1, comparator)
+        return merge_sort(lista, comparator)
     elif alg == "bubble":
         return bubble_sort(lista, comparator)
     else:
