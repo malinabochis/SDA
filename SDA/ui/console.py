@@ -28,7 +28,7 @@ class AppConsole:
     def __show_menu(self):
         print("\n=== Car Management Console ===")
         print("Comenzi disponibile:")
-        print("  SEARCH <tokenMasina>")
+        print("  SEARCH tokenMasina")
         print("  SORT tokenMasina")
         print("  SORT marca model")
         print("  SORT marca model tokenMasina")
@@ -44,8 +44,10 @@ class AppConsole:
 
         # SEARCH
         if parts[0].upper() == "SEARCH":
-            args = parts[1:]  # tot ce vine după SEARCH
-            self.__search(args)
+            if len(parts) != 2:
+                print("Format corect: SEARCH tokenMasina")
+                return
+            self.__search(parts[1])
             return
 
         # SORT
@@ -57,25 +59,12 @@ class AppConsole:
 
     # ---------------- SEARCH ----------------
 
-    def __search(self, args):
-        if len(args) == 1:
-            cmp = Car.cmp_token
-            valoare = args[0]
-            target = Car("", "", valoare, 0, 0)
-        else:
-            print("Criteriu de cautare invalid. Foloseste: SEARCH <token>")
-            return
-
-        # ----------------- EXECUTĂ CĂUTAREA -----------------
-        alg = "sequential"
-        alg = "binary"
-        car = self.__car_service.search_car(target, cmp, alg)
-
+    def __search(self, token):
+        car = self.__car_service.find_by_token(token)
         if car is None:
             print("Masina nu exista.")
         else:
             print(car)
-
 
     # ---------------- SORT ----------------
 
@@ -92,14 +81,13 @@ class AppConsole:
             cmp = Car.cmp_marca_model_token
 
         elif args == ["profit"]:
-            cmp = Car.cmp_profit
+            cmp = self.__car_service.cmp_profit
 
         else:
             print("Criteriu de sortare invalid.")
             return
 
-        lista_sortata_bubble_sort = self.__car_service.sort_cars(cmp, alg = "bubble")
-        lista_sortata_merge_sort = self.__car_service.sort_cars(cmp, alg="merge")
+        lista_sortata = self.__car_service.sort_cars(cmp)
 
-        for car in lista_sortata_merge_sort:
+        for car in lista_sortata:
             print(car)
