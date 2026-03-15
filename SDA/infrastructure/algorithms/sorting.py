@@ -51,7 +51,25 @@ def merge_sort(arr, left, right, comparator):
         merge(arr, left, mid, right, comparator)
     return arr
 
-def sort_alg_type(lista, comparator):
-    arr = lista[:] # copie dupa lista, ca sa nu se modifice ea insasi
-    merge_sort(arr, 0, len(arr) - 1, comparator)
+
+"""BUBBLE SORT --> COMPLEXITATE: n^2"""
+
+def bubble_sort(arr, comparator):
+    arr = arr[:]  # facem o copie ca să nu modificăm lista originală
+    n = len(arr)
+
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if comparator(arr[j], arr[j + 1]) > 0:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
     return arr
+
+
+def sort_alg_type(lista, comparator, alg="merge"):
+    if alg == "merge":
+        return merge_sort(lista[:], 0, len(lista) - 1, comparator)
+    elif alg == "bubble":
+        return bubble_sort(lista, comparator)
+    else:
+        raise ValueError("Algoritm necunoscut")

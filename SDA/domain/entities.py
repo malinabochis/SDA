@@ -50,3 +50,15 @@ class Car:
                     return 1
                 else:
                     return 0
+
+    @staticmethod
+    def cmp_profit(a, b):
+        profit_a = a.pret_vanz - a.pret_ach
+        profit_b = b.pret_vanz - b.pret_ach
+
+        if profit_a < profit_b:
+            return -1
+        elif profit_a > profit_b:
+            return 1
+        else:
+            return 0
